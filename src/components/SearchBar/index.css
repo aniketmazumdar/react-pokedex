@@ -1,0 +1,113 @@
+.filter-input,
+.filter-dropdown {
+  height: 3rem;
+}
+
+.filter-dropdowns-drawer-wrapper {
+  text-align: right;
+  padding-top: 3.7rem !important;
+}
+
+.filter-dropdowns-drawer-wrapper a svg {
+  font-size: 2.5rem;
+  background-color: #31005f;
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+/* For desktop screen: */
+@media only screen and (min-width: 900px) {
+  .filter-dropdowns-lg {
+    display: block;
+  }
+  .filter-dropdowns-drawer-wrapper {
+    display: none;
+  }
+}
+
+/* For mobile phone screen: */
+@media only screen and (max-width: 899px) {
+  .filter-dropdowns-lg {
+    display: none;
+  }
+  .filter-dropdowns-drawer-wrapper {
+    display: block;
+  }
+}
+
+.filter-dropdowns-sm {
+  padding: 2.5rem;
+  width: 30rem !important;
+}
+
+.filter-dropdowns-sm-header {
+  padding-bottom: 1rem;
+}
+
+.filter-dropdowns-sm-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.filter-dropdowns-sm-btns {
+  margin-top: 15rem !important;
+}
+
+/* --------------------------------------------------------------- */
+/*                            STAT RANGE                           */
+/* --------------------------------------------------------------- */
+
+/* For desktop screen: */
+@media only screen and (min-width: 900px) {
+  .stat-ranges {
+    width: 40rem;
+    padding: 2rem;
+  }
+  .stat-ranges .title-level {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 3rem;
+  }
+  .range-level .range-slider-wrap {
+    align-items: center;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 17% 75%;
+    column-gap: 2rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* For mobile phone screen: */
+@media only screen and (max-width: 899px) {
+  .stat-ranges {
+    width: 21rem;
+    padding: 2rem;
+  }
+  .stat-ranges .title-level {
+    display: none;
+  }
+  .range-level .range-slider-wrap {
+    margin-bottom: 1.2rem;
+  }
+  .range-level .range-slider-wrap .stat-label {
+    margin-bottom: .25rem;
+  }
+}
+
+
+
+.stat-ranges .button-level {
+  display: flex;
+  justify-content: right;
+  margin-top: 3rem;
+}
+
+.stat-ranges .button-level button {
+  margin-left: 1rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
