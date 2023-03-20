@@ -30,9 +30,9 @@ $ npm start
 
 
 ## Gallery
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-2.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-3.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-4.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-1.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-2.png?raw=true" width="25%" height="100" style="margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-2.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-3.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-4.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-1.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-2.png?raw=true" width="25%" height="100" style="float:right;margin-bottom:1rem">
