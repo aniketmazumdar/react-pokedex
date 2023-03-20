@@ -31,10 +31,10 @@ $ npm start
 
 ## Gallery
 <div style="float:left">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop.png?raw=true" width="33%">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-2.png?raw=true" width="33%">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-3.png?raw=true" width="33%">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-4.png?raw=true" width="33%">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-1.png?raw=true" width="33%">
-<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-2.png?raw=true" width="33%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop.png?raw=true" width="32%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-2.png?raw=true" width="32%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-3.png?raw=true" width="32%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/desktop-4.png?raw=true" width="32%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-1.png?raw=true" width="32%">
+<img src="https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/mobile-2.png?raw=true" width="32%">
 </div>
