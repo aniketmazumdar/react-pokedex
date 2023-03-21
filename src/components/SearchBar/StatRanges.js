@@ -8,10 +8,12 @@ import { DoubleRangeSlider } from "..";
 
 const StatRanges = ({
     dataList = {},
-    closeModalEvent = null,
-    onSubmitEvent = null,
+    minLevel = 0, 
+    maxLevel = 0,
+    closeModalEvent = () => {},
+    onSubmitEvent = () => {},
+    onChangeStat = () => {}
 }) => {
-    const minLevel = 0, maxLevel = 210;
     const [statList, setStatList] = useState({});
 
     const onChangeEvent = ({ value, name }) => {
@@ -19,6 +21,7 @@ const StatRanges = ({
         newstatList[name]['min'] = value[0];
         newstatList[name]['max'] = value[1];
         setStatList(newstatList);
+        onChangeStat(newstatList);  // for Mobile Filter Popup
     }
 
 

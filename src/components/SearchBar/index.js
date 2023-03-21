@@ -11,14 +11,11 @@ import StatRanges from "./StatRanges";
 
 const SearchBar = () => {
   const [types, setTypes] = useState([]);
-  const [checkedTypes, setCheckedTypes] = useState([]);
   const [genders, setGenders] = useState([]);
-  const [checkedGenders, setCheckedGenders] = useState([]);
-  const [stats, setStats] = useState([]);
   const [isOpenedModal, setIsOpenedModal] = useState(false);
-  const [isOpenedStatModal, setIsOpenedStatModal] = useState(false);
+  const [showStatDiv, setShowStatDiv] = useState(false);
   const { contextData, setContextData } = useContext(PokedexContext);
-  const { allPokemons, searchStr, selectedTypes, selectedGenders, statList } = contextData;
+  const { allPokemons, searchStr, selectedTypes, selectedGenders, statList, statRangeMinLevel, statRangeMaxLevel } = contextData;
 
   const loadDropdownsData = async () => {
     const typeApiRes = await fetchTypeListFromApi();
@@ -28,8 +25,6 @@ const SearchBar = () => {
     setGenders(genderApiRes);
 
     const statListApiRes = await fetchStatListFromApi();
-    setStats(statListApiRes);
-
     setContextData(prev => ({
       ...prev,
       statList: statListApiRes
@@ -37,40 +32,17 @@ const SearchBar = () => {
   }
 
 
-  const onChangeSearch = (str) => {
+  const onChangeFilter = (type, data) => {
     setContextData(prev => ({
       ...prev,
-      searchStr: str
+      [type]: data
     }));
   }
 
-  const onChangeType = (arr) => {
-    setContextData(prev => ({
-      ...prev,
-      selectedTypes: arr
-    }));
-    setCheckedTypes(arr);
-  }
-
-  const onChangeGender = (arr) => {
-    setContextData(prev => ({
-      ...prev,
-      selectedGenders: arr
-    }));
-    setCheckedGenders(arr);
-  }
-
-  const resetDropdownFields = () => {
-    onChangeType([]);
-    onChangeGender([]);
-  }
-
-  const onSubmitStatValues = (arr) => {
-    setStats(arr);
-    setContextData(prev => ({
-      ...prev,
-      statList: arr
-    }));
+  const onSubmitFilter = (filterData = {}) => {
+    Object.keys(filterData).forEach(name => {
+      onChangeFilter(name, filterData[name]);
+    })
   }
 
 
@@ -87,60 +59,73 @@ const SearchBar = () => {
   return (
     <>
       <Grid container spacing={4} className="search-bar">
-        <Grid item md={6} sm={10} className="">
+        <Grid item md={6} xs={10} className="">
           <Input
             name="name"
             id="name"
             classes="filter-input"
             label="Search by"
             placeholder="Name or Number"
-            onChangeHandler={onChangeSearch}
+            onChangeHandler={(val) => onChangeFilter('searchStr', val)}
             isSearch={true}
           />
         </Grid>
 
         <Grid item md={6} className="filter-dropdowns-lg">
           <Grid container spacing={4}>
-            <Grid item md={4} sm={12} className="">
+            <Grid item md={4} xs={12} className="">
               <Dropdown
                 name="type"
                 id="type"
                 classes="filter-dropdown"
                 label="Type"
                 dataList={types}
-                callback={onChangeType}
-                selected={checkedTypes}
+                callback={(val) => onChangeFilter('selectedTypes', val)}
+                selected={selectedTypes}
               />
             </Grid>
-            <Grid item md={4} sm={12} className="">
+            <Grid item md={4} xs={12} className="">
               <Dropdown
                 name="gender"
                 id="gender"
                 classes="filter-dropdown"
                 label="Gender"
                 dataList={genders}
-                callback={onChangeGender}
-                selected={checkedGenders}
+                callback={(val) => onChangeFilter('selectedGenders', val)}
+                selected={selectedGenders}
               />
             </Grid>
-            <Grid item md={4} sm={12} className="">
+            <Grid item md={4} xs={12} className="" onClick={() => setShowStatDiv(prev => !prev)}>
               <Input
                 name="stat"
                 id="stat"
                 classes="filter-input"
                 label="Stats"
-                placeholder={getDropdownPlaceholder(stats)}
-                onClickHandler={setIsOpenedStatModal}
+                placeholder={getDropdownPlaceholder(statList)}
                 readOnly={true}
               />
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item md={2} sm={2} className="filter-dropdowns-drawer-wrapper">
+        <Grid item md={2} xs={2} className="filter-dropdowns-drawer-wrapper">
           <a href='#' onClick={() => setIsOpenedModal(true)}><TuneIcon /></a>
         </Grid>
       </Grid>
+
+      {
+        showStatDiv && <Grid container className="stat-ranges-wrap-lg" justifyContent="flex-end">
+          <Grid item md={6} xs={12}>
+            <StatRanges
+              dataList={statList}
+              minLevel={statRangeMinLevel}
+              maxLevel={statRangeMaxLevel}
+              closeModalEvent={setShowStatDiv}
+              onSubmitEvent={(val) => onChangeFilter('statList', val)}
+            />
+          </Grid>
+        </Grid>
+      }
 
 
       {
@@ -150,31 +135,17 @@ const SearchBar = () => {
           isOpen={isOpenedModal}
           childComp={
             <MobileFilterDropdowns
-              closeModalEvent={setIsOpenedModal}
-              resetDropdownFields={resetDropdownFields}
-              onChangeType={onChangeType}
               types={types}
-              checkedTypes={checkedTypes}
-              onChangeGender={onChangeGender}
+              checkedTypes={selectedTypes}
               genders={genders}
-              checkedGenders={checkedGenders}
-              stats={stats}
-            />
-          }
-        />
-      }
-
-
-      {
-        /* StatRanges Modal  */
-        <Modal
-          size='md'
-          isOpen={isOpenedStatModal}
-          childComp={
-            <StatRanges
-              dataList={stats}
-              closeModalEvent={setIsOpenedStatModal}
-              onSubmitEvent={onSubmitStatValues}
+              checkedGenders={selectedGenders}
+              stats={statList}
+              minStatLevel={statRangeMinLevel}
+              maxStatLevel={statRangeMaxLevel}
+              showStatDiv={showStatDiv}
+              setShowStatDiv={setShowStatDiv}
+              submitFilterValues={onSubmitFilter}
+              closeModalEvent={setIsOpenedModal}
             />
           }
         />

@@ -4,7 +4,7 @@ import { CardActionArea } from '@mui/material';
 import { capitalizeEachWord, getGradientColorCodesByTypes } from '../../../utils';
 
 
-const CardBox = ({ compData, withCaption = true, size, handleClickEvent = null }) => {
+const CardBox = ({ compData, withCaption = true, size, handleClickEvent = () => {} }) => {
     if (!compData) {
         return;
     }
@@ -18,7 +18,7 @@ const CardBox = ({ compData, withCaption = true, size, handleClickEvent = null }
         <>
             <Card
                 className='cardbox'
-                onClick={() => handleClickEvent && handleClickEvent(true, id)}
+                onClick={() => handleClickEvent(true, id)}
                 style={{ background: bgColors, height: cardboxHeight ?? 'N/A' }}
             >
                 <CardActionArea>

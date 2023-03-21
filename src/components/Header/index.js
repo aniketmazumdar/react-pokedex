@@ -5,10 +5,10 @@ import Grid from '@mui/material/Grid';
 const Header = () => {
   return (
     <Grid container className="header">
-      <Grid item md={2} sm={12} className="header-title">
+      <Grid item md={2} xs={12} className="header-title">
         Pokédex
       </Grid>
-      <Grid item md={10} sm={12} className="header-subtitle">
+      <Grid item md={10} xs={12} className="header-subtitle">
         Search for any Pokenmon that exists on other planet
       </Grid>
     </Grid>

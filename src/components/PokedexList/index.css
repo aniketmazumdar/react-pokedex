@@ -19,3 +19,6 @@
   }
 }
 
+.pokedex-list .cardbox-img-wrapper img {
+  height: 13rem;
+}
