@@ -39,8 +39,9 @@ const Dropdown = (props) => {
     }, [selected.toString()])
 
 
-    const menuItemList = dataList.map(item => capitalizeEachWord(item));
+    const menuItemList = dataList?.map(item => capitalizeEachWord(item));
     const placeholder = getDropdownPlaceholder(dataList);
+
 
     return (
         <FormControl sx={{ width: '100%' }}>
@@ -53,13 +54,14 @@ const Dropdown = (props) => {
                 value={val}
                 onChange={handleChange}
                 displayEmpty={true}
-                renderValue={(selected) => selected?.length ? Array.isArray(selected) ? selected.join(', ') : selected : placeholder}
+                renderValue={(selected) => selected?.length ? Array?.isArray(selected) ? selected?.join(', ') : selected : placeholder}
                 MenuProps={MenuProps}
+                data-testid={'test-'+id}
             >
-                {menuItemList?.map((name) => (
-                    <MenuItem key={name} value={name}>
-                        <Checkbox checked={val.indexOf(name) > -1} />
-                        <ListItemText primary={name} />
+                {menuItemList?.map((item) => (
+                    <MenuItem key={item} value={item}>
+                        <Checkbox checked={val?.indexOf(item) > -1} />
+                        <ListItemText primary={item} />
                     </MenuItem>
                 ))}
             </Select>

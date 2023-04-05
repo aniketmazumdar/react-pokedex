@@ -6,7 +6,8 @@ import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutl
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 
 
-const BasicInfo = ({ compData = null, closeModalEvent = null, changePokemonEvent = null }) => {
+const BasicInfo = (props) => {
+  const { compData = null, closeModalEvent = null, changePokemonEvent = null } = props;
   const { id, formattedId, name, img, types, pokemonDesc } = compData;
   const [isMount, setIsMount] = useState(false);
 
@@ -38,16 +39,16 @@ const BasicInfo = ({ compData = null, closeModalEvent = null, changePokemonEvent
           </div>
 
           <div className='basic-info-icons'>
-            <a href='#' onClick={() => changePokemonEvent('prev')}><ArrowCircleLeftOutlinedIcon /></a>
-            <a href='#' onClick={() => closeModalEvent(false)}><CancelOutlinedIcon /></a>
-            <a href='#' onClick={() => changePokemonEvent('next')}><ArrowCircleRightOutlinedIcon /></a>
+            <a href='#' onClick={() => changePokemonEvent('prev')} data-testid="test-btn-prev-change-pokemon"><ArrowCircleLeftOutlinedIcon /></a>
+            <a href='#' onClick={() => closeModalEvent(false)} data-testid="test-btn-close-modal-lg"><CancelOutlinedIcon /></a>
+            <a href='#' onClick={() => changePokemonEvent('next')} data-testid="test-btn-next-change-pokemon"><ArrowCircleRightOutlinedIcon /></a>
           </div>
 
           <div className='basic-info-content'>
             <div className='pokemon-description'>
               {pokemonDesc ?? 'N/A'}
             </div>
-            ... <a href='#' className='readmore' onClick={() => setIsMount(true)}>read more</a>
+            ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-lg">read more</a>
           </div>
         </div>
 
@@ -57,7 +58,7 @@ const BasicInfo = ({ compData = null, closeModalEvent = null, changePokemonEvent
           </div>
 
           <div className='basic-info-icons'>
-            <a href='#' onClick={() => closeModalEvent(false)}><CancelOutlinedIcon /></a>
+            <a href='#' onClick={() => closeModalEvent(false)} data-testid="test-btn-close-modal-sm"><CancelOutlinedIcon /></a>
           </div>
 
           <div className="basic-info-id">
@@ -82,7 +83,7 @@ const BasicInfo = ({ compData = null, closeModalEvent = null, changePokemonEvent
             <div className='pokemon-description'>
               {pokemonDesc ?? 'N/A'}
             </div>
-            ... <a href='#' className='readmore' onClick={() => setIsMount(true)}>read more</a>
+            ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-sm">read more</a>
           </div>
         </div>
       </div>

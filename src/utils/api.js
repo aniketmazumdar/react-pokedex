@@ -36,8 +36,7 @@ export const fetchStatListFromApi = async () => {
 }
 
 
-export const fetchPokemonListFromApi = (offset = 0) => {
-    const limit = 30;
+export const fetchPokemonListFromApi = (offset, limit) => {
     return fetchDataFromAPi('pokemon?offset=' + offset + '&limit=' + limit).then(res => {
         return {
             results: res?.results,

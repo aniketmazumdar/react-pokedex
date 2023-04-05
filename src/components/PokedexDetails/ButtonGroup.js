@@ -8,8 +8,8 @@ const ButtonGroup = ({ compData, changePokemonEvent = null }) => {
 
   return (
     <div className="button-group">
-      <Button variant="contained" className="btn-dark-blue" onClick={() => changePokemonEvent('prev')}><WestIcon />&nbsp;&nbsp;&nbsp;&nbsp;{prevPokemonName ?? 'N/A'}</Button>
-      <Button variant="contained" className="btn-dark-blue" onClick={() => changePokemonEvent('next')}>{nextPokemonName ?? 'N/A'}&nbsp;&nbsp;&nbsp;&nbsp;<EastIcon /></Button>
+      <Button variant="contained" className="btn-dark-blue" onClick={() => changePokemonEvent('prev')} data-testid="test-btn-prev-change-pokemon"><WestIcon />&nbsp;&nbsp;&nbsp;&nbsp;{prevPokemonName ?? 'N/A'}</Button>
+      <Button variant="contained" className="btn-dark-blue" onClick={() => changePokemonEvent('next')} data-testid="test-btn-next-change-pokemon">{nextPokemonName ?? 'N/A'}&nbsp;&nbsp;&nbsp;&nbsp;<EastIcon /></Button>
     </div>
   )
 }

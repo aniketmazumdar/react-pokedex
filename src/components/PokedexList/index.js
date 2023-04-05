@@ -1,5 +1,5 @@
 import './index.css'
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { PokedexContext } from "../../context";
 import {
   fetchDataFromAPi,
@@ -19,7 +19,7 @@ const PokedexList = () => {
   const [isMountModal, setIsMountModal] = useState(false);
   const [selectedPokemonId, setSelectedPokemonId] = useState(null);
   const { contextData, setContextData } = useContext(PokedexContext);
-  const { filteredPokemons, allPokemons, genderPokemonMap, pokemonListOffset } = contextData;
+  const { filteredPokemons, allPokemons, genderPokemonMap, pokemonListLimit, pokemonListOffset } = contextData;
 
   const fetchPokemonList = async () => {
     let mapGenderPokemon = genderPokemonMap;
@@ -31,7 +31,7 @@ const PokedexList = () => {
       }));
     }
 
-    const pokemonList = await fetchPokemonListFromApi(pokemonListOffset);
+    const pokemonList = await fetchPokemonListFromApi(pokemonListOffset, pokemonListLimit);
     const pList = await Promise.all(pokemonList?.results?.map(async (item) => {
       const details = await fetchDataFromAPi(item.url);
       const types = await getTypes(details?.types);
@@ -57,7 +57,6 @@ const PokedexList = () => {
     await setContextData(prev => ({
       ...prev,
       allPokemons: finalPokemonList,
-      pokemonListLimit: pokemonList?.limit,
       pokemonListOffset: pokemonList?.offset,
     }));
   }
@@ -75,11 +74,11 @@ const PokedexList = () => {
   };
 
 
-  const handleScrollEvent = () => {
+  const handleScrollEvent = useCallback(() => {
     if ((window.innerHeight + document.documentElement.scrollTop) > document.documentElement.offsetHeight - 1) {
       fetchPokemonList();
     }
-  }
+  }, [pokemonListOffset]);
 
 
   useEffect(() => {

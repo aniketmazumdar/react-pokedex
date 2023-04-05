@@ -25,7 +25,21 @@ import ButtonGroup from "./ButtonGroup";
 const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, changePokemonEvent = null }) => {
   const { contextData } = useContext(PokedexContext);
 
-  const [pokemonDetails, setPokemonDetails] = useState();
+  const [pokemonDetails, setPokemonDetails] = useState({
+    pokemonDesc: '',
+    height: '',
+    weight: '',
+    eggGroups: '',
+    abilities: '',
+    types: [],
+    weakAgainsts: [],
+    firstEvolutionBasicDetails: {},
+    secondEvolutionBasicDetails: {},
+    thirdEvolutionBasicDetails: {},
+    prevPokemonName: '',
+    nextPokemonName: '',
+  });
+  // const [pokemonDetails, setPokemonDetails] = useState(null);
 
   const { allPokemons } = contextData;
   const basicDetails = getPokemonBasicDetails(allPokemons, pokemonId);
@@ -50,7 +64,7 @@ const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, changePokemo
 
     const typeApiRes = await fetchTypeDetailsFromApi(id);      // type API
     if (typeApiRes) {
-      weakAgainsts = await getWeakAgainst(typeApiRes);      
+      weakAgainsts = await getWeakAgainst(typeApiRes);
     }
 
     const prevPokemonBasicDetails = getSiblingPokemonBasicDetails(allPokemons, id, 'prev');
@@ -81,7 +95,7 @@ const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, changePokemo
   return (
     <div className='pokemon-details'>
       {
-        pokemonDetails ?
+        pokemonDetails?.pokemonDesc ?
           <>
             <BasicInfo
               compData={{

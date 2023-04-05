@@ -66,7 +66,7 @@ const SearchBar = () => {
             classes="filter-input"
             label="Search by"
             placeholder="Name or Number"
-            onChangeHandler={(val) => onChangeFilter('searchStr', val)}
+            onChangeHandler={(e) => onChangeFilter('searchStr', e.target.value)}
             isSearch={true}
           />
         </Grid>

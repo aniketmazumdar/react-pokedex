@@ -12,7 +12,7 @@ const App = () => {
     selectedGenders: [],
     statList: {},
     filteredPokemons: [],
-    pokemonListLimit: 0,
+    pokemonListLimit: 30,
     pokemonListOffset: 0,
     statRangeMinLevel: 0,
     statRangeMaxLevel: 210,

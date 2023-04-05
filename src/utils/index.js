@@ -66,7 +66,7 @@ export const toFeetandInch = (inches) => {
 
 
 export const getId = (id) => {
-    return ('00' + id).slice(-3);
+    return String(id).padStart(3, '0');
 }
 
 
@@ -210,7 +210,7 @@ export const getPokemonBasicDetails = (allPokemons = [], pokemonId = null) => {
 
 export const getSiblingPokemonBasicDetails = (allPokemons = [], selectedPokemonId = null, flag = null) => {
     const index = allPokemons.findIndex(item => item.id === selectedPokemonId);
-    const rqstIndex = flag === 'next' ? (index < allPokemons.length ? index + 1 : index) : (index > 0 ? index - 1 : index);
+    const rqstIndex = flag === 'next' ? (index < (allPokemons.length - 1) ? index + 1 : (allPokemons.length - 1)) : (index > 0 ? index - 1 : 0);
     let siblingPokemonBasicDetails = {};
     if (rqstIndex !== index) {
         siblingPokemonBasicDetails = allPokemons[rqstIndex];
@@ -223,8 +223,11 @@ export const getSiblingPokemonBasicDetails = (allPokemons = [], selectedPokemonI
 
 export const getDropdownPlaceholder = (list) => {
     let placeholder = '';
+    if (list === undefined) {
+        return;
+    }
     if (list?.length === undefined) {   // Object type
-        placeholder = capitalizeEachWord(Object.keys(list)[0]) + ' + ' + (Object.keys(list)?.length - 1) + ' More';
+        placeholder = capitalizeEachWord(Object?.keys(list)[0]) + ' + ' + (Object?.keys(list)?.length - 1) + ' More';
     } else {    // Array type
         placeholder = capitalizeEachWord(list[0]) + ' + ' + (list?.length - 1) + ' More';
     }

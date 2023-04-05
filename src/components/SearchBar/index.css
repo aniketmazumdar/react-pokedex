@@ -3,7 +3,7 @@
   height: 3rem;
 }
 
-.filter-input input {
+.filter-input input:read-only {
   cursor: pointer;
 }
 

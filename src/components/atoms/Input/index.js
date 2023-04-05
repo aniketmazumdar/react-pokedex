@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 const Input = (props) => {
-    const { name, id, classes, label, placeholder, onChangeHandler = null, isSearch = false, readOnly = false } = props;
+    const { name, id, classes, label, placeholder, onChangeHandler = () => { }, isSearch = false, readOnly = false } = props;
 
     return (
         <FormControl sx={{ width: '100%' }} variant="outlined">
@@ -18,8 +18,9 @@ const Input = (props) => {
                 endAdornment={isSearch && <InputAdornment position="end"><SearchIcon /></InputAdornment>}
                 aria-describedby="inp"
                 placeholder={placeholder}
-                onChange={(e) => onChangeHandler(e.target.value)}
+                onChange={onChangeHandler}
                 readOnly={readOnly}
+                data-testid={'test-' + id}
             />
         </FormControl>
     );
