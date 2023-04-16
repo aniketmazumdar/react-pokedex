@@ -17,16 +17,26 @@ Project is created with:
 * [pokeapi.co](https://pokeapi.co/api/v2/) is used to generate Pokemon data.
 
 
-
 ## Setup Steps
 1. Fork the project and clone it locally.
 2. To run this app, open the terminal into the project directory and install it locally using npm:
-
-```
+```shell
 $ npm install
 $ npm start
 ```
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+
+## Unit Test
+Jest and RTL (React Test Library) are used for unit test cases.
+1. Run command to run the test cases.
+```shell
+$ npm run test
+```
+2. After running the command, `coverage` folder is created. Find the `index.html` and open in the browser. Test coverage is showing here.
+
+![Screenshot](https://github.com/aniketmazumdar/pokedex-react/blob/main/src/assets/img/coverage.png?raw=true)
+3. Each component has a `index.test.js` file for unit test cases. Everytime after adding or changing the test file, we need to run the test command to check the test result case and reload the coverage file `coverage/index.html` to check the coverage.
 
 
 ## Gallery
