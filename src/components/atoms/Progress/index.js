@@ -1,7 +1,7 @@
 import './index.css';
 
 
-const Progress = (props) => {
+export const Progress = (props) => {
     const { rate = 100 } = props;
     const percent = rate / 210 * 100;
 
@@ -13,5 +13,3 @@ const Progress = (props) => {
         </div>
     );
 }
-
-export default Progress;

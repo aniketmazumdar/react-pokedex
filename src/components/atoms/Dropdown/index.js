@@ -18,7 +18,7 @@ const MenuProps = {
 };
 
 
-const Dropdown = (props) => {
+export const Dropdown = (props) => {
     const { name, id, classes, label, dataList, callback, selected = [] } = props;
 
     const [val, setVal] = useState([]);
@@ -68,5 +68,3 @@ const Dropdown = (props) => {
         </FormControl>
     );
 }
-
-export default Dropdown;

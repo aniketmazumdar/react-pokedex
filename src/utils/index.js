@@ -1,22 +1,6 @@
-import {
-    fetchDataFromAPi,
-    fetchPokemonListFromApi,
-    fetchTypeDetailsFromApi,
-    fetchSpeciesDetailsFromApi,
-    fetchTypeListFromApi,
-    fetchGenderListFromApi,
-    fetchStatListFromApi,
-} from "./api";
+import { fetchDataFromAPi, fetchGenderListFromApi } from "./api";
 
-export {
-    fetchDataFromAPi,
-    fetchPokemonListFromApi,
-    fetchTypeDetailsFromApi,
-    fetchSpeciesDetailsFromApi,
-    fetchTypeListFromApi,
-    fetchGenderListFromApi,
-    fetchStatListFromApi,
-};
+export * from './api';
 
 
 export const statNameConstants = {
@@ -77,8 +61,8 @@ export const getAvatar = (sprites) => {
 
 export const getPokemonDesc = (species) => {
     const flavorTextEntries = species?.flavor_text_entries;
-    const filterList = flavorTextEntries.filter(item => item?.language?.name === 'en');
-    const content = filterList.map(item => item?.flavor_text.replace(/\n|\f/g, " ")).join(' ');
+    const filterList = flavorTextEntries?.filter(item => item?.language?.name === 'en');
+    const content = filterList?.map(item => item?.flavor_text.replace(/\n|\f/g, " ")).join(' ');
     return content;
 }
 
@@ -120,13 +104,13 @@ export const getWeakAgainst = (typeApiRes) => {
 
 export const getEvolutionChain = (response, pokemonList) => {
     const firstEvolutionName = response?.chain?.species?.name;
-    const firstEvolutionBasicDetails = pokemonList.find(item => item.name === firstEvolutionName);
+    const firstEvolutionBasicDetails = pokemonList?.find(item => item.name === firstEvolutionName);
 
     const secondEvolutionName = response?.chain?.evolves_to[0]?.species?.name;
-    const secondEvolutionBasicDetails = pokemonList.find(item => item.name === secondEvolutionName);
+    const secondEvolutionBasicDetails = pokemonList?.find(item => item.name === secondEvolutionName);
 
     const thirdEvolutionName = response?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name;
-    const thirdEvolutionBasicDetails = pokemonList.find(item => item.name === thirdEvolutionName);
+    const thirdEvolutionBasicDetails = pokemonList?.find(item => item.name === thirdEvolutionName);
 
     return { firstEvolutionBasicDetails, secondEvolutionBasicDetails, thirdEvolutionBasicDetails };
 }
@@ -146,16 +130,16 @@ export const filterPokemons = (contextData, setContextData) => {
     let filterPokemons = allPokemons;
 
     if (searchStr) {
-        filterPokemons = filterPokemons.filter(item => (item?.name?.includes(searchStr) || item?.formattedId?.includes(searchStr)))
+        filterPokemons = filterPokemons?.filter(item => (item?.name?.includes(searchStr) || item?.formattedId?.includes(searchStr)))
     }
     if (selectedTypes.length) {
-        filterPokemons = filterPokemons.filter(item => checkArrayIntersect(item?.types, selectedTypes));
+        filterPokemons = filterPokemons?.filter(item => checkArrayIntersect(item?.types, selectedTypes));
     }
     if (selectedGenders.length) {
-        filterPokemons = filterPokemons.filter(item => checkArrayIntersect(item?.gender, selectedGenders));
+        filterPokemons = filterPokemons?.filter(item => checkArrayIntersect(item?.gender, selectedGenders));
     }
     if (Object.keys(statList).length) {
-        filterPokemons = filterPokemons.filter(item => checkStatIntersect(item?.stats, statList));
+        filterPokemons = filterPokemons?.filter(item => checkStatIntersect(item?.stats, statList));
     }
 
     setContextData(prev => ({
@@ -179,16 +163,16 @@ export const getGradientColorCodesByTypes = (types) => {
 
 export const getGenderNameList = async () => {
     const res = await fetchGenderListFromApi();
-    return res.map(item => item.name);
+    return await res?.length && res?.map(item => item.name);
 }
 
 
 export const getPokemonAndGenderMap = async () => {
     const genders = await fetchGenderListFromApi();
     let mapRes = {};
-    const urls = await genders.map(item => fetchDataFromAPi(item.url));
+    const urls = await genders?.map(item => fetchDataFromAPi(item.url));
     await Promise.all(urls).then(res => {
-        res.forEach(response => {
+        res?.forEach(response => {
             response?.pokemon_species_details.forEach(item => {
                 mapRes[item?.pokemon_species?.name] = mapRes.hasOwnProperty(item?.pokemon_species?.name) ? [...mapRes[item?.pokemon_species?.name], capitalizeEachWord(response?.name)] : [capitalizeEachWord(response?.name)];
             });
@@ -204,12 +188,12 @@ export const getGendersByPokemon = (mapData, pokemonName) => {
 
 
 export const getPokemonBasicDetails = (allPokemons = [], pokemonId = null) => {
-    return allPokemons.find(item => item.id === pokemonId);
+    return allPokemons?.find(item => item.id === pokemonId);
 }
 
 
 export const getSiblingPokemonBasicDetails = (allPokemons = [], selectedPokemonId = null, flag = null) => {
-    const index = allPokemons.findIndex(item => item.id === selectedPokemonId);
+    const index = allPokemons?.findIndex(item => item.id === selectedPokemonId);
     const rqstIndex = flag === 'next' ? (index < (allPokemons.length - 1) ? index + 1 : (allPokemons.length - 1)) : (index > 0 ? index - 1 : 0);
     let siblingPokemonBasicDetails = {};
     if (rqstIndex !== index) {

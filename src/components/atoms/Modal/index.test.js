@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Modal from './index';
+import { Modal } from '.';
 
 describe("Modal", () => {
     it('should render same text passed into props', () => {

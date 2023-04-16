@@ -1,7 +1,7 @@
 import "./index.css";
 import ReactSlider from 'react-slider'
 
-const DoubleRangeSlider = (props) => {
+export const DoubleRangeSlider = (props) => {
   const { indexNo = 0, name = '', minLevel = 0, maxLevel = 100, values, onAfterChange } = props;
   
   return (
@@ -27,5 +27,3 @@ const DoubleRangeSlider = (props) => {
     </div>
   )
 };
-
-export default DoubleRangeSlider;

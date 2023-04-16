@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 
 
-const Modal = ({ childComp, size='md', isOpen=true, classes='' }) => {
+export const Modal = ({ childComp, size='md', isOpen=true, classes='' }) => {
 
     return (
         <>
@@ -19,5 +19,3 @@ const Modal = ({ childComp, size='md', isOpen=true, classes='' }) => {
         </>
     );
 }
-
-export default Modal;

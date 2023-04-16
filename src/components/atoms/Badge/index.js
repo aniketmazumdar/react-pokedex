@@ -1,7 +1,7 @@
 import { getColorCodeByType } from '../../../utils';
 import './index.css';
 
-const Badge = ({ title }) => {
+export const Badge = ({ title }) => {
     const colorCode = getColorCodeByType(title);
 
     return (
@@ -10,5 +10,3 @@ const Badge = ({ title }) => {
         </span>
     );
 }
-
-export default Badge;

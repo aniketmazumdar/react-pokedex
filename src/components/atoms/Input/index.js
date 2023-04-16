@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-const Input = (props) => {
+export const Input = (props) => {
     const { name, id, classes, label, placeholder, onChangeHandler = () => { }, isSearch = false, readOnly = false } = props;
 
     return (
@@ -25,5 +25,3 @@ const Input = (props) => {
         </FormControl>
     );
 }
-
-export default Input;

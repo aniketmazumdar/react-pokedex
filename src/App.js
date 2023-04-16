@@ -1,5 +1,5 @@
 import './App.css';
-import { Header, SearchBar, PokedexList } from "./components";
+import { Header, Filter, PokedexList } from "./components";
 import { PokedexContext } from './context';
 import { useState } from 'react';
 
@@ -23,7 +23,7 @@ const App = () => {
       <PokedexContext.Provider value={{ contextData, setContextData }}>
         <div className='container'>
           <Header />
-          <SearchBar />
+          <Filter />
           <PokedexList />
         </div>
       </PokedexContext.Provider>

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Input from './index';
+import { Input } from '.';
 
 describe("Input", () => {
     it('should render same text passed into props', () => {
