@@ -1,6 +1,6 @@
 import './index.css'
 import { useEffect, useState, useContext, useCallback } from 'react';
-import { CardBox, Modal, PokedexDetails } from '../../';
+import { CardBox, Modal, PokedexDetails, PageLoader } from '../../';
 import {
   fetchDataFromAPi,
   getAvatar,
@@ -19,9 +19,14 @@ export const PokedexList = () => {
   const [isMountModal, setIsMountModal] = useState(false);
   const [selectedPokemonId, setSelectedPokemonId] = useState(null);
   const { contextData, setContextData } = useContext(PokedexContext);
-  const { filteredPokemons, allPokemons, genderPokemonMap, pokemonListLimit, pokemonListOffset } = contextData;
+  const { filteredPokemons, allPokemons, genderPokemonMap, pokemonListLimit, pokemonListOffset, IS_POKEMON_LIST_PROCESSING } = contextData;
 
   const fetchPokemonList = async () => {
+    await setContextData(prev => ({
+      ...prev,
+      IS_POKEMON_LIST_PROCESSING: true,
+    }));
+
     let mapGenderPokemon = genderPokemonMap;
     if (!mapGenderPokemon || Object.keys(mapGenderPokemon).length === 0) {
       mapGenderPokemon = await getPokemonAndGenderMap();
@@ -57,6 +62,7 @@ export const PokedexList = () => {
       ...prev,
       allPokemons: finalPokemonList,
       pokemonListOffset: pokemonList?.offset,
+      IS_POKEMON_LIST_PROCESSING: false,
     }));
   }
 
@@ -93,27 +99,42 @@ export const PokedexList = () => {
 
   return (
     <>
-      <h4>Showing {filteredPokemons?.length} of {allPokemons?.length} results</h4>
-      <div className="pokedex-list" data-testid="test-pokedex-list">
+      <div className="pokedex-list-wrap">
+        <h4>
+          Showing {filteredPokemons?.length} of {allPokemons?.length} results
+        </h4>
+
         {
-          filteredPokemons?.length && filteredPokemons?.map((item, indx) => {
-            return (
-              <CardBox
-                key={indx}
-                size={'md'}
-                withCaption={true}
-                compData={{
-                  id: item?.id,
-                  formattedId: item?.formattedId,
-                  name: item?.name,
-                  img: item?.img,
-                  types: item?.types,
-                }}
-                handleClickEvent={toggleModal}
-                {...{"data-testid": "test-cardbox-"+indx}}
-              />
-            )
-          })
+          filteredPokemons?.length > 0 ? (
+            <>
+              <div className="pokedex-list" data-testid="test-pokedex-list">
+                {
+                  filteredPokemons?.map((item, indx) => {
+                    return (
+                      <CardBox
+                        key={indx}
+                        size={'md'}
+                        withCaption={true}
+                        compData={{
+                          id: item?.id,
+                          formattedId: item?.formattedId,
+                          name: item?.name,
+                          img: item?.img,
+                          types: item?.types,
+                        }}
+                        handleClickEvent={toggleModal}
+                        {...{ "data-testid": "test-cardbox-" + indx }}
+                      />
+                    )
+                  })
+                }
+              </div>
+
+              {IS_POKEMON_LIST_PROCESSING && <PageLoader color="grey" text="Loading more items..." />}
+            </>
+          ) : (
+            <h4>No result item found!!</h4>
+          )
         }
       </div>
 

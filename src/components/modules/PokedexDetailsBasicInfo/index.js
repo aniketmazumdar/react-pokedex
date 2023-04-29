@@ -2,11 +2,11 @@ import { useState } from 'react';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { CardBox, Modal, PokedexDetailsDescription } from '../../';
+import { CardBox, Modal, PokedexDetailsDescription, Placeholder } from '../../';
 
 
 export const PokedexDetailsBasicInfo = (props) => {
-  const { compData = null, closeModalEvent = null, changePokemonEvent = null } = props;
+  const { compData = null, closeModalEvent = null, changePokemonEvent = null, isLoading = false } = props;
   const { id, formattedId, name, img, types, pokemonDesc } = compData;
   const [isMount, setIsMount] = useState(false);
 
@@ -16,25 +16,30 @@ export const PokedexDetailsBasicInfo = (props) => {
       <div className="basic-info">
         <div className='basic-info-lg'>
           <div className="basic-info-cardbox">
-            <CardBox
-              size={'lg'}
-              withCaption={false}
-              compData={{
-                id: id,
-                formattedId: formattedId,
-                name: name,
-                img: img,
-                types: types,
-              }}
-            />
+            {
+              isLoading ?
+                <Placeholder variant="rounded" width={'100%'} height={'300px'} />
+                :
+                <CardBox
+                  size={'lg'}
+                  withCaption={false}
+                  compData={{
+                    id: id,
+                    formattedId: formattedId,
+                    name: name,
+                    img: img,
+                    types: types,
+                  }}
+                />
+            }
           </div>
 
           <div className='basic-info-title'>
-            <b>{name ?? 'N/A'}</b>
+            {isLoading ? <Placeholder variant="rounded" width={'100%'} height={'100%'} /> : <b>{name ?? 'N/A'}</b>}
           </div>
 
           <div className="basic-info-id">
-            {formattedId ?? 'N/A'}
+            {isLoading ? <Placeholder variant="rounded" width={'100%'} height={'100%'} /> : formattedId ?? 'N/A'}
           </div>
 
           <div className='basic-info-icons'>
@@ -44,16 +49,24 @@ export const PokedexDetailsBasicInfo = (props) => {
           </div>
 
           <div className='basic-info-content'>
-            <div className='pokemon-description'>
-              {pokemonDesc ?? 'N/A'}
-            </div>
-            ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-lg">read more</a>
+            {
+              isLoading ?
+                <Placeholder variant="rounded" width={'100%'} height={'220px'} />
+                :
+                <>
+                  <div className='pokemon-description'>
+                    {pokemonDesc ?? 'N/A'}
+                  </div>
+                  ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-lg">read more</a>
+                </>
+            }
+
           </div>
         </div>
 
         <div className='basic-info-sm'>
           <div className='basic-info-title'>
-            <b>{name ?? 'N/A'}</b>
+            {isLoading ? <Placeholder variant="rounded" width={'100%'} height={'100%'} /> : <b>{name ?? 'N/A'}</b>}
           </div>
 
           <div className='basic-info-icons'>
@@ -61,28 +74,40 @@ export const PokedexDetailsBasicInfo = (props) => {
           </div>
 
           <div className="basic-info-id">
-            {formattedId ?? 'N/A'}
+            {isLoading ? <Placeholder variant="rounded" width={'100%'} height={'100%'} /> : formattedId ?? 'N/A'}
           </div>
 
           <div className="basic-info-cardbox">
-            <CardBox
-              size={'lg'}
-              withCaption={false}
-              compData={{
-                id: id,
-                formattedId: formattedId,
-                name: name,
-                img: img,
-                types: types,
-              }}
-            />
+            {
+              isLoading ?
+                <Placeholder variant="rounded" width={'100%'} height={'300px'} />
+                :
+                <CardBox
+                  size={'lg'}
+                  withCaption={false}
+                  compData={{
+                    id: id,
+                    formattedId: formattedId,
+                    name: name,
+                    img: img,
+                    types: types,
+                  }}
+                />
+            }
           </div>
 
           <div className='basic-info-content'>
-            <div className='pokemon-description'>
-              {pokemonDesc ?? 'N/A'}
-            </div>
-            ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-sm">read more</a>
+            {
+              isLoading ?
+                <Placeholder variant="rounded" width={'100%'} height={'220px'} />
+                :
+                <>
+                  <div className='pokemon-description'>
+                    {pokemonDesc ?? 'N/A'}
+                  </div>
+                  ... <a href='#' className='readmore' onClick={() => setIsMount(true)} data-testid="test-btn-readmore-sm">read more</a>
+                </>
+            }
           </div>
         </div>
       </div>

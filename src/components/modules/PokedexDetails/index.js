@@ -1,11 +1,11 @@
 import './index.css';
 import { useState, useEffect, useContext } from 'react';
 import {
-  PokedexDetailsBasicInfo, 
-  PokedexDetailsCharacteristics, 
-  PokedexDetailsStrategies, 
-  PokedexDetailsEvolutionChain, 
-  PokedexDetailsButtonGroup 
+  PokedexDetailsBasicInfo,
+  PokedexDetailsCharacteristics,
+  PokedexDetailsStrategies,
+  PokedexDetailsEvolutionChain,
+  PokedexDetailsButtonGroup
 } from '../../';
 import {
   toFeetandInch,
@@ -25,28 +25,41 @@ import { PokedexContext } from "../../../context";
 
 
 export const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, changePokemonEvent = null }) => {
-  const { contextData } = useContext(PokedexContext);
+  const { contextData, setContextData } = useContext(PokedexContext);
 
   const [pokemonDetails, setPokemonDetails] = useState({
-    pokemonDesc: '',
-    height: '',
-    weight: '',
-    eggGroups: '',
-    abilities: '',
+    id: '',
+    formattedId: '',
+    name: '',
+    img: '',
+    gender: '',
     types: [],
+    stats: {},
+    pokemonDesc: "",
+    height: "",
+    weight: "",
+    eggGroups: "",
+    abilities: "",
     weakAgainsts: [],
     firstEvolutionBasicDetails: {},
     secondEvolutionBasicDetails: {},
     thirdEvolutionBasicDetails: {},
-    prevPokemonName: '',
-    nextPokemonName: '',
+    prevPokemonName: "",
+    nextPokemonName: "",
   });
 
-  const { allPokemons } = contextData;
-  const basicDetails = getPokemonBasicDetails(allPokemons, pokemonId);
-  const { id, formattedId, name, img, gender, types, height, weight, abilities, stats } = basicDetails;
+  const { allPokemons, IS_POKEMON_BASIC_DETAILS_PROCESSING } = contextData;
+
 
   const fetchPokemonDetails = async () => {
+    await setContextData(prev => ({
+      ...prev,
+      IS_POKEMON_BASIC_DETAILS_PROCESSING: true
+    }));
+
+    const basicDetails = getPokemonBasicDetails(allPokemons, pokemonId);
+    const { id, formattedId, name, img, gender, types, height, weight, abilities, stats } = basicDetails;
+
     const formattedHeight = await toFeetandInch(height);
     const formattedWeight = await convertPoundsToKilograms(weight);
     const formattedAbilities = await getAbilities(abilities);
@@ -71,14 +84,19 @@ export const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, chang
     const prevPokemonBasicDetails = getSiblingPokemonBasicDetails(allPokemons, id, 'prev');
     const nextPokemonBasicDetails = getSiblingPokemonBasicDetails(allPokemons, id, 'next');
 
-
     await setPokemonDetails({
+      id,
+      formattedId,
+      name,
+      img,
+      gender,
+      types,
+      stats,
       pokemonDesc,
       height: formattedHeight,
       weight: formattedWeight,
       eggGroups,
       abilities: formattedAbilities,
-      types,
       weakAgainsts,
       firstEvolutionBasicDetails,
       secondEvolutionBasicDetails,
@@ -86,46 +104,53 @@ export const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, chang
       prevPokemonName: prevPokemonBasicDetails?.name,
       nextPokemonName: nextPokemonBasicDetails?.name,
     });
+
+    await setContextData(prev => ({
+      ...prev,
+      IS_POKEMON_BASIC_DETAILS_PROCESSING: false
+    }));
   }
 
   useEffect(() => {
     fetchPokemonDetails();
-  }, [basicDetails]);
+  }, [pokemonId]);
 
 
   return (
     <div className='pokemon-details'>
       {
-        pokemonDetails?.pokemonDesc ?
+        pokemonDetails?.id ?
           <>
             <PokedexDetailsBasicInfo
               compData={{
-                id: id,
-                formattedId: formattedId,
-                name: name,
-                img: img,
-                types: types,
+                id: pokemonDetails?.id,
+                formattedId: pokemonDetails?.formattedId,
+                name: pokemonDetails?.name,
+                img: pokemonDetails?.img,
+                types: pokemonDetails?.types,
                 pokemonDesc: pokemonDetails?.pokemonDesc,
               }}
+              isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
               closeModalEvent={closeModalEvent}
               changePokemonEvent={changePokemonEvent}
             />
 
             <PokedexDetailsCharacteristics
-              pokemonDetails={pokemonDetails}
               compData={{
                 height: pokemonDetails?.height,
                 weight: pokemonDetails?.weight,
-                gender,
+                gender: pokemonDetails?.gender,
                 eggGroups: pokemonDetails?.eggGroups,
                 abilities: pokemonDetails?.abilities,
                 types: pokemonDetails?.types,
                 weakAgainsts: pokemonDetails?.weakAgainsts,
               }}
+              isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
             />
 
             <PokedexDetailsStrategies
-              stats={stats}
+              stats={pokemonDetails?.stats}
+              isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
             />
 
             <PokedexDetailsEvolutionChain
@@ -134,14 +159,16 @@ export const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, chang
                 secondPokemonBasicDetails: pokemonDetails?.secondEvolutionBasicDetails,
                 thirdPokemonBasicDetails: pokemonDetails?.thirdEvolutionBasicDetails,
               }}
+              isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
             />
 
             <PokedexDetailsButtonGroup
-              changePokemonEvent={changePokemonEvent}
               compData={{
                 prevPokemonName: pokemonDetails?.prevPokemonName,
                 nextPokemonName: pokemonDetails?.nextPokemonName,
               }}
+              isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
+              changePokemonEvent={changePokemonEvent}
             />
           </>
           :

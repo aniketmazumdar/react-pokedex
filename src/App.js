@@ -16,6 +16,8 @@ const App = () => {
     pokemonListOffset: 0,
     statRangeMinLevel: 0,
     statRangeMaxLevel: 210,
+    IS_POKEMON_LIST_PROCESSING: false,
+    IS_POKEMON_BASIC_DETAILS_PROCESSING: false,
   });
 
   return (

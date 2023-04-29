@@ -3,6 +3,20 @@
   padding: 2.5rem;
 }
 
+/* For desktop screen: */
+@media only screen and (min-width: 900px) {
+  .pokemon-details {
+    min-width: 800px;
+  }
+}
+
+/* For mobile phone screen: */
+@media only screen and (max-width: 899px) {
+  .pokemon-details {
+    min-width: 360px;
+  }
+}
+
 /* --------------------------------------------------------------- */
 /*                          BASIC INFO LEVEL                              */
 /* --------------------------------------------------------------- */
