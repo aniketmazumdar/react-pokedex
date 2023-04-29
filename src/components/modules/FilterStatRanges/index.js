@@ -15,14 +15,13 @@ const StatRanges = ({
 }) => {
     const [statList, setStatList] = useState({});
 
-    const onChangeEvent = ({ value, name }) => {
+    const onChangeEvent = (name, value) => {
         let newstatList = { ...statList };
         newstatList[name]['min'] = value[0];
         newstatList[name]['max'] = value[1];
         setStatList(newstatList);
         onChangeStat(newstatList);  // for Mobile Filter Popup
     }
-
 
     const onResetEvent = () => {
         let newstatList = { ...statList };
@@ -59,8 +58,8 @@ const StatRanges = ({
                                 minLevel={minLevel}
                                 maxLevel={maxLevel}
                                 values={[statList[name]['min'], statList[name]['max']]}
-                                onAfterChange={onChangeEvent}
-                                data-testid={"test-rangeslider-"+indx}
+                                onAfterChangeHandler={(name, value) => onChangeEvent(name, value)}
+                                data-testid={"test-rangeslider-" + indx}
                             />
                         </div>
                     ))
